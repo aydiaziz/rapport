@@ -53,6 +53,57 @@ L’ensemble de ces développements est conforme aux spécifications fonctionnel
 \end{figure}
 
 \textit{Ce diagramme met en évidence les différentes interactions d’un prestataire avec le système, incluant la gestion de son compte, la consultation des ordres, l’expression d’intérêt, la messagerie avec le client, le suivi de son agenda, de ses revenus et de ses factures.}
+\section{Diagrammes de séquence}
+
+\subsection*{Inscription d’un prestataire}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.80\linewidth]{figures/Inscription d’un prestataire.png}
+\caption{Diagramme de séquence – Inscription d’un prestataire}
+\end{figure}
+\textit{Ce diagramme illustre les échanges nécessaires pour permettre à un nouveau prestataire de s’inscrire via un formulaire. Les données sont envoyées au backend qui les enregistre dans la base, puis une confirmation est retournée.}
+
+\subsection*{Exprimer son intérêt pour une mission}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/Exprimer son intérêt pour une mission.png}
+\caption{Diagramme de séquence – Exprimer son intérêt pour une mission}
+\end{figure}
+\textit{Ce scénario montre comment un prestataire manifeste son intérêt via l’interface, en interagissant avec une route d’API REST. La base de données est mise à jour et le frontend affiche la confirmation.}
+
+\subsection*{Compléter son profil}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/Compléter le profil helper.png}
+\caption{Diagramme de séquence – Compléter son profil}
+\end{figure}
+\textit{Une fois validé, le prestataire accède au formulaire de profil. Une requête PUT est envoyée pour mettre à jour les informations dans la base. Une réponse de succès est ensuite retournée.}
+
+\section{Diagrammes d’activité}
+
+\subsection*{Visualisation du calendrier}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.60\linewidth]{figures/Visualisation du calendrier des missions.png}
+\caption{Diagramme d’activité – Visualisation du calendrier}
+\end{figure}
+\textit{Le prestataire peut consulter les missions confirmées via un calendrier. L’application effectue un appel API pour récupérer les données affichées.}
+
+\subsection*{Exprimer son intérêt pour un ordre de mission}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.60\linewidth]{figures/Exprimer son intérêt pour un ordre de mission act.png}
+\caption{Diagramme d’activité – Expression d’intérêt pour une mission}
+\end{figure}
+\textit{Ce diagramme retrace les étapes menant à l’expression d’intérêt, depuis la consultation des ordres jusqu’à la mise à jour dans la base.}
+
+\subsection*{Processus de complétion de profil}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\linewidth]{figures/Processus de complétion de profil prestataire.png}
+\caption{Diagramme d’activité – Compléter son profil}
+\end{figure}
+\textit{L’activité débute par l’accès au formulaire. Selon la validation des champs, l'utilisateur est redirigé ou invité à corriger les erreurs.}
 
 \section*{Interfaces utilisateur Angular – Prestataire}
 

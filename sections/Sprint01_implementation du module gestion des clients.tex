@@ -94,6 +94,82 @@ Ce diagramme montre que le \textbf{Client} peut :
 
 Toutes ces fonctionnalités reposent sur une action préalable indispensable : \textbf{s’authentifier}, indiquée par les relations de type \textit{<<include>>}. Cette modélisation renforce la clarté des scénarios d’utilisation et leur dépendance aux conditions d’accès.
 
+\section{Diagrammes de séquence}
+Le \textbf{diagramme de séquence UML} est un diagramme comportemental utilisé pour modéliser les interactions dynamiques entre les différents acteurs (utilisateurs ou systèmes) et les composants du système au fil du temps. Il décrit l'enchaînement chronologique des messages échangés entre les entités dans un scénario précis.
+
+Ce diagramme met en évidence :
+\begin{itemize}
+    \item les acteurs ou composants impliqués (ex : Client, Interface Angular, Backend Django, Base de données) ;
+    \item les messages transmis (requêtes, réponses, appels de fonction) ;
+    \item l’ordre d’exécution des actions.
+\end{itemize}
+
+Il est particulièrement utile pour visualiser le déroulement d’un cas d’utilisation, vérifier la cohérence des appels API et anticiper la logique métier lors de l’implémentation technique.
+\subsection*{Création de compte client}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/Séquence – Création de compte client.png}
+\caption{Diagramme de séquence – Création d’un compte client}
+\end{figure}
+\textit{Ce diagramme décrit le processus d’enregistrement d’un nouveau client. Le client saisit ses informations dans un formulaire Angular. Une requête POST est ensuite envoyée au backend Django via un endpoint REST /api/register. Le backend se charge de l’insertion des données dans la base PostgreSQL, puis renvoie une confirmation de succès. Enfin, l’interface affiche un message confirmant la création du compte. Ce scénario met en évidence l’intégration fluide entre le frontend et le backend dans une architecture orientée services.}
+
+\vspace{1em}
+
+\subsection*{Soumission d’une demande via le chatbot}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\linewidth]{figures/Séquence – Soumettre une demande via le chatbot.png}
+\caption{Diagramme de séquence – Soumission d’une demande via le chatbot}
+\end{figure}
+\textit{Ce diagramme illustre comment un client initie une demande de prestation à travers le chatbot intégré à l’interface Angular. Une fois les informations collectées (type de service, description, coordonnées), une requête POST est envoyée au backend Django sur l’endpoint /api/orders. Après validation et enregistrement, le backend retourne un identifiant unique de la commande. Le client reçoit une confirmation que sa demande a bien été enregistrée. Cette interaction favorise une expérience utilisateur rapide et automatisée.}
+
+\vspace{1em}
+
+\subsection*{Modification du profil client}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/Séquence – Modification du profil client.png}
+\caption{Diagramme de séquence – Mise à jour du profil client}
+\end{figure}
+\textit{Ce diagramme retrace le scénario dans lequel un client modifie ses informations personnelles. Les données modifiées sont envoyées via une requête PUT sur l’endpoint /api/profil/:id. Le backend Django traite la requête, met à jour les informations dans la base, puis retourne une réponse HTTP 200 OK. L’interface informe ensuite le client que les modifications ont été prises en compte. Ce flux garantit la cohérence des données utilisateurs.}
+
+\section{Diagrammes d’activité}
+Le \textbf{diagramme d’activité UML} est un diagramme comportemental permettant de représenter les différentes étapes d’un processus métier sous forme de flux d’activités. Il est souvent utilisé pour modéliser les workflows, les logiques conditionnelles et les prises de décision.
+
+Il permet de :
+\begin{itemize}
+    \item illustrer l’enchaînement logique des actions d’un utilisateur ou d’un système ;
+    \item intégrer des conditions, des boucles ou des actions parallèles ;
+    \item clarifier la logique métier avant le développement technique.
+\end{itemize}
+
+\subsection*{Création de compte client}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.60\linewidth]{figures/Activité – Création de compte client.png}
+\caption{Diagramme d’activité – Création de compte client}
+\end{figure}
+\textit{Ce diagramme montre les étapes fonctionnelles du processus de création de compte. Après avoir accédé au formulaire, le client saisit ses informations, puis soumet le formulaire. Le backend valide les données reçues. Si les champs sont valides, les données sont enregistrées ; dans le cas contraire, des messages d’erreur sont affichés. Ce diagramme met en évidence les flux de validation côté serveur et les interactions conditionnelles.}
+
+\vspace{1em}
+
+\subsection*{Consultation de ses demandes}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\linewidth]{figures/Activité – Consultation de ses demandes.png}
+\caption{Diagramme d’activité – Consultation des demandes passées}
+\end{figure}
+\textit{Le diagramme décrit la logique de consultation des demandes effectuées par un client connecté. Une fois connecté, celui-ci accède à la page “Mes demandes”. Un appel API de type GET est déclenché vers le backend qui récupère les données depuis la base et les renvoie pour affichage. Ce processus montre un accès simple et direct à l’historique utilisateur.}
+
+\vspace{1em}
+
+\subsection*{Messagerie avec un prestataire}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\linewidth]{figures/Activité – Messagerie avec prestataire.png}
+\caption{Diagramme d’activité – Messagerie client-prestataire}
+\end{figure}
+\textit{Ce diagramme d’activité présente l’enchaînement des actions lors de l’envoi d’un message par le client. Une fois sur une demande spécifique, le client accède au module de messagerie. Le message rédigé est envoyé via une requête POST vers /messages. Après enregistrement en base, la discussion est actualisée. Ce diagramme reflète le caractère temps réel de la communication au sein de la plateforme.}
 \section{Interfaces utilisateur Angular}
 
 Cette section présente les différentes interfaces développées avec Angular pour les utilisateurs de la plateforme Swift Helpers. Chaque capture d’écran est accompagnée d’un commentaire expliquant son objectif fonctionnel.

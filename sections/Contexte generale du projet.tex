@@ -20,7 +20,7 @@ inotekplus...
 Dans un monde de plus en plus tourné vers la digitalisation des services, les plateformes de mise en relation entre clients et prestataires connaissent une forte croissance. Le besoin de solutions intelligentes, automatisées et flexibles devient essentiel pour répondre aux exigences d’efficacité, de rapidité et de traçabilité des prestations. C’est dans ce contexte que s’inscrit ce projet de fin d’études, qui consiste à développer une plateforme de réservation de services intégrant un chatbot conversationnel, une gestion complète des ordres de mission, ainsi qu’un système automatisé de suivi et de facturation.
 
 
-\\
+
 \section{Étude de l’existant}
 
 Dans le domaine des services à la demande, plusieurs plateformes numériques telles que \textbf{TaskRabbit}, \textbf{Thumbtack}, \textbf{HomeAdvisor} ou encore \textbf{Jiffy} (plus active au Canada) permettent aux clients de réserver des services ponctuels auprès de prestataires indépendants. Ces solutions sont bien implantées sur le marché nord-américain et ont réussi à capter une part significative des utilisateurs en quête de services rapides et flexibles.
@@ -65,9 +65,6 @@ Ainsi, plusieurs problématiques clés émergent :
 \begin{itemize}
   \item \textbf{Comment améliorer la collecte des besoins client de manière fluide et interactive ?}  
   Les formulaires statiques montrent leurs limites. Il devient nécessaire d’intégrer un agent conversationnel (chatbot) intelligent capable de dialoguer avec le client pour cerner précisément ses attentes et générer automatiquement une demande structurée.
-
-  \item \textbf{Comment permettre une gestion personnalisée et indépendante des données pour chaque entité cliente ?}  
-  Dans un modèle multi-entité (multi-tenancy), chaque entreprise, franchise ou partenaire doit pouvoir gérer ses clients, ses prestataires et ses ordres de manière autonome, sans interférence avec les autres entités hébergées sur la même plateforme.
 
   \item \textbf{Comment structurer le suivi opérationnel d’un ordre de mission ?}  
   Il est essentiel d’introduire une traçabilité complète du service : indication du départ du prestataire, début de l’intervention, fin de la mission, et génération automatique d’une preuve d’exécution.
@@ -172,6 +169,7 @@ Le projet \textit{Swift Helpers} s’appuie sur un ensemble de technologies mode
 \begin{figure}[H]
 \centering
 \includegraphics[width=2.5cm]{figures/django.png}
+\caption*{\textit{Logo de Django}}
 \end{figure}
 \noindent
 \textbf{Django} a été choisi pour la construction du backend grâce à sa rapidité de développement, sa sécurité intégrée et son ORM efficace. Il facilite la création d’API REST en association avec \texttt{Django REST Framework} et permet une structuration claire du code serveur.
@@ -180,6 +178,7 @@ Le projet \textit{Swift Helpers} s’appuie sur un ensemble de technologies mode
 \begin{figure}[H]
 \centering
 \includegraphics[width=2.5cm]{figures/angular.png}
+\caption*{\textit{Logo d’Angular}}
 \end{figure}
 \noindent
 \textbf{Angular} est un framework robuste basé sur TypeScript, idéal pour développer des applications web dynamiques et modulaires. Il permet un rendu côté client rapide, une architecture MVC, et une bonne séparation des composants.
@@ -188,6 +187,7 @@ Le projet \textit{Swift Helpers} s’appuie sur un ensemble de technologies mode
 \begin{figure}[H]
 \centering
 \includegraphics[width=2.5cm]{figures/docker.png}
+\caption*{\textit{Logo de Docker}}
 \end{figure}
 \noindent
 \textbf{Docker} a permis de conteneuriser chaque composant (frontend, backend, base de données) afin d’assurer une portabilité entre les environnements de développement et de production. Grâce à \texttt{docker-compose}, le déploiement de l’application est automatisé et reproductible.
@@ -196,6 +196,7 @@ Le projet \textit{Swift Helpers} s’appuie sur un ensemble de technologies mode
 \begin{figure}[H]
 \centering
 \includegraphics[width=2.5cm]{figures/postgres.png}
+\caption*{\textit{Logo de PostgreSQL}}
 \end{figure}
 \noindent
 \textbf{PostgreSQL} est une base de données relationnelle open-source performante, fiable et compatible avec Django. Elle assure la gestion sécurisée des données clients, prestataires, ordres et factures, avec un bon support du typage et des relations complexes.
@@ -204,6 +205,7 @@ Le projet \textit{Swift Helpers} s’appuie sur un ensemble de technologies mode
 \begin{figure}[H]
 \centering
 \includegraphics[width=2.5cm]{figures/github.png}
+\caption*{\textit{Logo de GitHub}}
 \end{figure}
 \noindent
 \textbf{GitHub} a été utilisé comme plateforme d’hébergement du code source tout au long du projet. Il a facilité la gestion centralisée du dépôt Git, le suivi des commits, la gestion des branches, ainsi que l’historique des modifications.
@@ -216,11 +218,11 @@ Grâce à GitHub, il a été possible de :
   \item Documenter le projet avec un \texttt{README.md}.
 \end{itemize}
 
-
 \subsection*{Visual Studio Code (Environnement de développement)}
 \begin{figure}[H]
 \centering
 \includegraphics[width=2.5cm]{figures/vscode.png}
+\caption*{\textit{Logo de Visual Studio Code}}
 \end{figure}
 \noindent
 \textbf{Visual Studio Code (VS Code)} est l’éditeur principal utilisé pendant ce projet. Léger, extensible et performant, il offre une excellente intégration avec Git, Docker, les frameworks Angular et Django, ainsi que de nombreux plugins de productivité.
