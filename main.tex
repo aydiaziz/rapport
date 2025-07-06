@@ -1,0 +1,267 @@
+\documentclass[11pt,oneside,french]{book}
+\usepackage[margin=1.2in]{geometry}
+\usepackage[toc,page]{appendix}
+\usepackage{graphicx}
+% \usepackage{natbib}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{changepage}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{caption}
+\usepackage{background}
+\usepackage{amsmath}
+\usepackage{pdfpages}
+\usepackage{biblatex}
+\usepackage{titletoc}  % Add titletoc package
+\addbibresource{sample.bib}
+
+\usepackage{glossaries}
+\newacronym{DLIA}{DLIA}{DeepVolt Location Intelligence Assistant}
+% Add a page for acronyms
+\printglossary[type=\acronymtype, title={List of Acronyms}]
+
+\begin{document}
+
+\captionsetup[figure]{margin=1.5cm,font=small,labelfont={bf},name={Figure},labelsep=colon,textfont={it}}
+\captionsetup[table]{margin=1.5cm,font=small,labelfont={bf},name={Tableau},labelsep=colon,textfont={it}}
+\SetLipsumDefault{1}
+
+\frontmatter
+
+\begin{titlepage}
+\backgroundsetup{
+scale=1,
+angle=0,
+opacity=1,
+contents={\includegraphics[width=\paperwidth,height=\paperheight]{figures/page_garde.jpg}}
+}
+
+\begin{center}
+\end{center}
+
+\end{titlepage}
+
+\newpage
+\backgroundsetup{contents={}}
+
+\begin{center}
+\end{center}
+
+\newpage
+\input{sections/dedications.tex}
+\input{sections/ack.tex}
+\input{sections/abstract.tex}
+
+\tableofcontents
+\listoffigures
+
+% List of Abbreviations
+\newpage
+\begin{center}
+  \textbf{\Large List of Abbreviations}
+\end{center}
+
+\begin{description}
+  \item[AC] Alternating Current
+  \item[AD] Direct Current
+  \item[ADDT] Annual Average Daily Traffic
+  \item[AI] Artificial Intelligence
+  \item[API] Application Programming Interface
+  \item[AWS] Amazon Web Services
+  \item[CPO] Charge Point Operator
+  \item[DLIA] DeepVolt Location Intelligence Assistant
+  \item[E-Mobility] Electromobility
+  \item[EV] Electric Vehicle
+  \item[EVCS] Electric Vehicle Charging Station
+  \item[IDE] Integrated Development Environment
+  \item[MLOps] Machine Learning Operations
+  \item[ML] Machine Learning
+  \item[MVP] Minimum Viable Product
+  \item[OLS] Ordinary Least Squares
+  \item[POI] Point of Interest
+  \item[SaaS] Software as a Service
+  \item[TIF] Tagged Image Format
+\end{description}
+
+\mainmatter
+
+\addcontentsline{toc}{chapter}{Introduction}
+\input{sections/introduction.tex}
+\input{sections/Contexte generale du projet.tex }
+\input{sections/Sprint0: analyse et specification des besoins.tex}
+\input{sections/Sprint01:implementation du module gestion des clients.tex}
+\input{sections/Sprint02:gestion des prestataires.tex}
+\input{sections/Sprint03:gestion des ordres de mission.tex}
+\input{sections/Sprint04:administration de platforme.tex}
+\input{sections/Sprint05:deploiement de platforme.tex}
+\input{sections/Conclusion generale.tex}
+\addcontentsline{toc}{chapter}{Conclusion}
+%\input{sections/References.tex}
+
+\printbibliography
+
+\newpage
+\thispagestyle{empty}
+\begin{center}
+\end{center}
+
+\newpage
+\thispagestyle{empty}
+\backgroundsetup{
+scale=1,
+angle=0,
+opacity=1,
+contents={\includegraphics[width=\paperwidth,height=\paperheight]{figures/back_page.jpg}}
+}
+\begin{center}
+\end{center}
+
+\end{document}
+
+
+% \documentclass[11pt,oneside,french]{book}
+% \usepackage[margin=1.2in]{geometry}
+% \usepackage[toc,page]{appendix}
+% \usepackage{graphicx}
+% \usepackage{natbib}
+% \usepackage{float}
+% \usepackage{lipsum}
+% \usepackage{changepage}
+% \usepackage{hyperref}
+% \usepackage{textcomp}
+% \usepackage{hyperref}
+% \usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage[english]{babel}
+% \usepackage{caption}
+% \usepackage{background}
+% \usepackage{amsmath}
+% \usepackage{pdfpages}
+% \usepackage{pdfpages}
+% \usepackage{biblatex} %Imports biblatex package
+% \addbibresource{sample.bib} %Import the bibliography file
+% \begin{document}
+
+
+% \captionsetup[figure]{margin=1.5cm,font=small,labelfont={bf},name={Figure},labelsep=colon,textfont={it}}
+% \captionsetup[table]{margin=1.5cm,font=small,labelfont={bf},name={Tableau},labelsep=colon,textfont={it}}
+% \SetLipsumDefault{1}
+
+
+
+% \frontmatter
+
+
+
+% \begin{titlepage}
+% \backgroundsetup{
+% scale=1,
+% angle=0,
+% opacity=1,  %% adjust
+% contents={\includegraphics[width=\paperwidth,height=\paperheight]{figures/page_garde.jpg}}
+% }
+
+
+
+% % -------------------------------------------------------------------
+% % You need to edit the details here
+% % -------------------------------------------------------------------
+
+% \begin{center}
+
+% \end{center}
+
+% \end{titlepage}
+
+
+% % -------------------------------------------------------------------
+% % Declaration
+% % -------------------------------------------------------------------
+
+
+% \newpage
+
+% \backgroundsetup{contents={}}
+
+% \begin{center}
+% \end{center}
+
+
+% % \includepdf[pages=-]{figures/PLAGIAT.pdf}
+% \newpage
+% \input{sections/dedications.tex}
+% \input{sections/ack.tex}
+% \input{sections/introduction.tex}
+
+
+
+
+% % -------------------------------------------------------------------
+% % Contents, list of figures, list of tables
+% % -------------------------------------------------------------------
+
+% \tableofcontents
+% \listoffigures
+
+
+
+
+
+% % -------------------------------------------------------------------
+% % Main sections (as required)
+% % -------------------------------------------------------------------
+
+% \mainmatter
+
+% \addcontentsline{toc}{chapter}{Abstract} 
+% \input{sections/General Context }
+% \input{sections/Preliminary Study.tex}
+% \input{sections/Specification and Design.tex}
+% \input{sections/Realization}
+% \input{sections/Results and Discussion.tex}
+% \input{sections/Conclusion and Practical Implications.tex}
+% \addcontentsline{toc}{chapter}{Conclusion} 
+% \input{sections/References.tex}
+
+
+
+% % -------------------------------------------------------------------
+% % Bibliography
+% % -------------------------------------------------------------------
+
+
+
+% \printbibliography %Prints bibliography
+
+
+
+% % -------------------------------------------------------------------
+% % Appendices
+% % -------------------------------------------------------------------
+
+% % \begin{appendices}
+% % \input{sections/Appendices.tex}
+% % \input{sections/appendixB.tex}
+% % \end{appendices}
+
+% \newpage
+% \thispagestyle{empty}
+% \begin{center}
+% \end{center}
+
+% \newpage
+% \thispagestyle{empty}
+% \backgroundsetup{
+% scale=1,
+% angle=0,
+% opacity=1,  %% adjust
+% contents={\includegraphics[width=\paperwidth,height=\paperheight]{figures/back_page.jpg}}
+% }
+% \begin{center}
+% \end{center}
+% \end{document}
