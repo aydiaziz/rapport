@@ -30,7 +30,7 @@
         .slide {
             width: 90%;
             max-width: 1200px;
-            height: 80vh;
+            height: 100vh;
             background: white;
             border-radius: 20px;
             padding: 60px;
@@ -38,7 +38,7 @@
             display: none;
             flex-direction: column;
             position: relative;
-            overflow-y: auto;
+            overflow: hidden;
         }
 
         .slide.active {
@@ -69,11 +69,20 @@
             gap: 20px;
         }
 
-        .logo {
+        .esprit-logo {
             height: 40px;
             width: auto;
         }
-
+        .inotek-logo {
+            height: 100px;
+            width: auto;
+        }
+        .main-logo {
+            height: 110px;
+            width: auto;
+            margin: 20px auto;
+            display: block;
+        }
         h1 {
             font-size: 3em;
             color: #2c3e50;
@@ -101,7 +110,7 @@
             font-size: 1.3em;
             color: #7f8c8d;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 0px;
         }
 
         .content {
@@ -375,7 +384,7 @@
 
         .title-slide h1 {
             font-size: 4em;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -384,15 +393,15 @@
 
         .student-info {
             background: white;
-            padding: 30px;
+            padding: 0px;
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            margin: 30px 0;
+            margin: 0px 0;
         }
 
         .student-info h3 {
             color: #667eea;
-            margin-bottom: 15px;
+            margin-bottom: 1*5px;
         }
     </style>
 </head>
@@ -407,11 +416,13 @@
             <div class="slide-header">
                 <div class="slide-number">01</div>
                 <div class="company-logos">
-                    <span style="font-weight: bold; color: #667eea;">ESPRIT × InotekPlus</span>
+                    <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT logo" class="esprit-logo">
+                    <img src="inotekplus_logo.png" alt="InotekPlus logo" class="inotek-logo">
                 </div>
             </div>
             <div class="content title-slide">
                 <h1>Swift Helpers</h1>
+                <img src="logo.png" alt="Logo" class="main-logo">
                 <div class="subtitle">Plateforme intelligente de gestion de services à la demande</div>
                 <div class="student-info">
                     <h3>Aziz Aydi</h3>
@@ -428,7 +439,8 @@
             <div class="slide-header">
                 <div class="slide-number">02</div>
                 <div class="company-logos">
-                    <span style="font-weight: bold; color: #667eea;">Introduction</span>
+                    <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT logo" class="esprit-logo">
+                    <img src="inotekplus_logo.png" alt="InotekPlus logo" class="inotek-logo">
                 </div>
             </div>
             <div class="content">
@@ -465,7 +477,8 @@
             <div class="slide-header">
                 <div class="slide-number">03</div>
                 <div class="company-logos">
-                    <span style="font-weight: bold; color: #667eea;">Contexte & Problématique</span>
+                    <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT logo" class="esprit-logo">
+                    <img src="inotekplus_logo.png" alt="InotekPlus logo" class="inotek-logo">
                 </div>
             </div>
             <div class="content">
@@ -518,7 +531,8 @@
             <div class="slide-header">
                 <div class="slide-number">04</div>
                 <div class="company-logos">
-                    <span style="font-weight: bold; color: #667eea;">Solution Proposée</span>
+                    <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT logo" class="esprit-logo">
+                    <img src="inotekplus_logo.png" alt="InotekPlus logo" class="inotek-logo">
                 </div>
             </div>
             <div class="content">
@@ -560,7 +574,8 @@
             <div class="slide-header">
                 <div class="slide-number">05</div>
                 <div class="company-logos">
-                    <span style="font-weight: bold; color: #667eea;">Stack Technologique</span>
+                    <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT logo" class="esprit-logo">
+                    <img src="inotekplus_logo.png" alt="InotekPlus logo" class="inotek-logo">
                 </div>
             </div>
             <div class="content">
@@ -609,7 +624,8 @@
             <div class="slide-header">
                 <div class="slide-number">06</div>
                 <div class="company-logos">
-                    <span style="font-weight: bold; color: #667eea;">Réalisation Technique</span>
+                    <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT logo" class="esprit-logo">
+                    <img src="inotekplus_logo.png" alt="InotekPlus logo" class="inotek-logo">
                 </div>
             </div>
             <div class="content">
@@ -669,7 +685,8 @@
             <div class="slide-header">
                 <div class="slide-number">07</div>
                 <div class="company-logos">
-                    <span style="font-weight: bold; color: #667eea;">Démonstration</span>
+                    <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT logo" class="esprit-logo">
+                    <img src="inotekplus_logo.png" alt="InotekPlus logo" class="inotek-logo">
                 </div>
             </div>
             <div class="content">
@@ -713,7 +730,8 @@
             <div class="slide-header">
                 <div class="slide-number">08</div>
                 <div class="company-logos">
-                    <span style="font-weight: bold; color: #667eea;">Résultats</span>
+                    <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT logo" class="esprit-logo">
+                    <img src="inotekplus_logo.png" alt="InotekPlus logo" class="inotek-logo">
                 </div>
             </div>
             <div class="content">
@@ -770,7 +788,8 @@
             <div class="slide-header">
                 <div class="slide-number">09</div>
                 <div class="company-logos">
-                    <span style="font-weight: bold; color: #667eea;">Conclusion & Perspectives</span>
+                    <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT logo" class="esprit-logo">
+                    <img src="inotekplus_logo.png" alt="InotekPlus logo" class="inotek-logo">
                 </div>
             </div>
             <div class="content">
@@ -829,7 +848,8 @@
             <div class="slide-header">
                 <div class="slide-number">10</div>
                 <div class="company-logos">
-                    <span style="font-weight: bold; color: #667eea;">Remerciements</span>
+                    <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT logo" class="esprit-logo">
+                    <img src="inotekplus_logo.png" alt="InotekPlus logo" class="inotek-logo">
                 </div>
             </div>
             <div class="content">
