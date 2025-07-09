@@ -38,7 +38,8 @@
             display: none;
             flex-direction: column;
             position: relative;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .slide.active {
@@ -403,12 +404,18 @@
             color: #667eea;
             margin-bottom: 1*5px;
         }
+
+        .supervisor {
+            font-size: 0.9em;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="presentation-container">
         <div class="slide-counter">
-            <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
+            <span id="currentSlide">1</span> / <span id="totalSlides">11</span>
         </div>
 
         <!-- Slide 1: Titre -->
@@ -430,6 +437,8 @@
                     <p>École Supérieure Privée d'Ingénierie et de Technologies (ESPRIT)</p>
                     <p>Projet réalisé chez <strong>InotekPlus, Canada</strong></p>
                     <p><strong>Année académique 2024-2025</strong></p>
+                    <p class="supervisor">Encadrant académique : Houda Jouini Chaabouni</p>
+                    <p class="supervisor">Encadrant professionnel : Hichem Aidi</p>
                 </div>
             </div>
         </div>
@@ -783,7 +792,7 @@
             </div>
         </div>
 
-        <!-- Slide 9: Conclusion & perspectives -->
+        <!-- Slide 9: Conclusion -->
         <div class="slide" id="slide9">
             <div class="slide-header">
                 <div class="slide-number">09</div>
@@ -793,60 +802,67 @@
                 </div>
             </div>
             <div class="content">
-                <h2>Conclusion & Perspectives</h2>
-                <div class="two-column">
-                    <div>
-                        <div class="highlight">
-                            <h3>🏆 Validation du projet</h3>
-                            <p>Swift Helpers démontre la faisabilité d'une plateforme moderne de gestion de services, alliant performance technique et expérience utilisateur optimisée.</p>
-                        </div>
-                        <div class="solution-box">
-                            <h3>💡 Compétences acquises</h3>
-                            <ul class="feature-list">
-                                <li><strong>Techniques :</strong> Django REST, Angular, Docker</li>
-                                <li><strong>Méthodologiques :</strong> Agile, Scrum, CI/CD</li>
-                                <li><strong>Humaines :</strong> Travail en équipe, communication client</li>
-                                <li><strong>Projet :</strong> Planification, gestion risques</li>
-                            </ul>
-                        </div>
+                <h2>Conclusion</h2>
+                <div class="highlight">
+                    <h3>🏆 Validation du projet</h3>
+                    <p>Swift Helpers démontre la faisabilité d'une plateforme moderne de gestion de services, alliant performance technique et expérience utilisateur optimisée.</p>
+                </div>
+                <div class="solution-box">
+                    <h3>💡 Compétences acquises</h3>
+                    <ul class="feature-list">
+                        <li><strong>Techniques :</strong> Django REST, Angular, Docker</li>
+                        <li><strong>Méthodologiques :</strong> Agile, Scrum, CI/CD</li>
+                        <li><strong>Humaines :</strong> Travail en équipe, communication client</li>
+                        <li><strong>Projet :</strong> Planification, gestion risques</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Perspectives -->
+        <div class="slide" id="slide10">
+            <div class="slide-header">
+                <div class="slide-number">10</div>
+                <div class="company-logos">
+                    <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT logo" class="esprit-logo">
+                    <img src="inotekplus_logo.png" alt="InotekPlus logo" class="inotek-logo">
+                </div>
+            </div>
+            <div class="content">
+                <h2>Perspectives</h2>
+                <div class="perspective-list">
+                    <div class="perspective-item">
+                        <h4>📱 Application mobile</h4>
+                        <p>Développement d'apps iOS/Android pour une mobilité accrue</p>
                     </div>
-                    <div>
-                        <h3>🔮 Améliorations futures</h3>
-                        <div class="perspective-list">
-                            <div class="perspective-item">
-                                <h4>📱 Application mobile</h4>
-                                <p>Développement d'apps iOS/Android pour une mobilité accrue</p>
-                            </div>
-                            <div class="perspective-item">
-                                <h4>🤖 IA avancée</h4>
-                                <p>Matching intelligent automatique entre clients et helpers</p>
-                            </div>
-                            <div class="perspective-item">
-                                <h4>💳 Paiement automatisé</h4>
-                                <p>Intégration Stripe/PayPal pour transactions sécurisées</p>
-                            </div>
-                            <div class="perspective-item">
-                                <h4>📊 Analytics avancés</h4>
-                                <p>Tableaux de bord avec KPIs et prédictions</p>
-                            </div>
-                            <div class="perspective-item">
-                                <h4>🌐 Internationalisation</h4>
-                                <p>Extension vers d'autres provinces canadiennes</p>
-                            </div>
-                            <div class="perspective-item">
-                                <h4>🔔 Notifications push</h4>
-                                <p>Alertes temps réel pour clients et helpers</p>
-                            </div>
-                        </div>
+                    <div class="perspective-item">
+                        <h4>🤖 IA avancée</h4>
+                        <p>Matching intelligent automatique entre clients et helpers</p>
+                    </div>
+                    <div class="perspective-item">
+                        <h4>💳 Paiement automatisé</h4>
+                        <p>Intégration Stripe/PayPal pour transactions sécurisées</p>
+                    </div>
+                    <div class="perspective-item">
+                        <h4>📊 Analytics avancés</h4>
+                        <p>Tableaux de bord avec KPIs et prédictions</p>
+                    </div>
+                    <div class="perspective-item">
+                        <h4>🌐 Internationalisation</h4>
+                        <p>Extension vers d'autres provinces canadiennes</p>
+                    </div>
+                    <div class="perspective-item">
+                        <h4>🔔 Notifications push</h4>
+                        <p>Alertes temps réel pour clients et helpers</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 10: Remerciements -->
-        <div class="slide" id="slide10">
+        <!-- Slide 11: Remerciements -->
+        <div class="slide" id="slide11">
             <div class="slide-header">
-                <div class="slide-number">10</div>
+                <div class="slide-number">11</div>
                 <div class="company-logos">
                     <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT logo" class="esprit-logo">
                     <img src="inotekplus_logo.png" alt="InotekPlus logo" class="inotek-logo">
@@ -898,7 +914,7 @@
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 10;
+        const totalSlides = 11;
 
         function showSlide(n) {
             const slides = document.querySelectorAll('.slide');
