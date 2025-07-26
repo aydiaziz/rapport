@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Helpers - Présentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            height: 100vh;
+            overflow: hidden;
+            color: #333;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .slide {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            height: 85vh;
+            padding: 30px;
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.6s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 10;
+        }
+        
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1a2a6c;
+            margin-bottom: 20px;
+        }
+        
+        .logos {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 50px;
+            width: auto;
+            opacity: 0.8;
+        }
+        
+        .slide-title {
+            font-size: 2.2rem;
+            color: #1a2a6c;
+            text-align: center;
+            margin: 10px 0 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        
+        .slide-subtitle {
+            font-size: 1.5rem;
+            color: #b21f1f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .slide-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .slide-footer {
+            text-align: center;
+            padding-top: 15px;
+            color: #1a2a6c;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .nav-buttons {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-btn:hover {
+            background: #b21f1f;
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .progress-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            width: 80%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: #b21f1f;
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: #1a2a6c;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            z-index: 11;
+        }
+        
+        /* Content Styles */
+        .project-desc {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .actor-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .actor-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            width: 250px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #1a2a6c;
+        }
+        
+        .actor-title {
+            color: #b21f1f;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .actor-features {
+            list-style-type: none;
+        }
+        
+        .actor-features li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .scenario-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .flow-step {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            width: 80%;
+            position: relative;
+            border-left: 4px solid #1a2a6c;
+        }
+        
+        .flow-step:before {
+            content: "→";
+            position: absolute;
+            left: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #b21f1f;
+            font-size: 1.5rem;
+        }
+        
+        .tech-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 100px 0;
+        }
+        
+        .tech-card {
+            width: 120px;
+            text-align: center;
+        }
+        
+        .tech-logo {
+            height: 80px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5rem;
+            color: #1a2a6c;
+        }
+        
+        .sprint-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sprint-title {
+            color: #b21f1f;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sprint-title:before {
+            content: "▶";
+            margin-right: 10px;
+            color: #1a2a6c;
+        }
+        
+        .qr-code {
+            display: block;
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed #1a2a6c;
+            font-weight: bold;
+            color: #b21f1f;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .comparison-table th {
+            background-color: #1a2a6c;
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .diagram-class-placeholder {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border: 2px dashed #1a2a6c;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.class-logo {
+    max-width: 1000px;
+    height: 550px;
+    object-fit: contain;
+    display: block;
+}
+
+        
+.nf-requirements {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.nf-badge {
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+    color: white;
+    padding: 18px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.4rem;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    text-align: center;
+    animation: fadeInUp 0.6s ease both;
+}
+
+.nf-badge:hover {
+    transform: scale(1.07);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+        /* Diagram placeholder styles */
+        .diagram-placeholder {
+            height: 600px;
+            background: #f0f0f0;
+            border: 2px dashed #1a2a6c;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            color: #b21f1f;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .architecture-placeholder {
+            height: 250px;
+            background: #f0f0f0;
+            border: 2px dashed #1a2a6c;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            color: #b21f1f;
+            font-weight: bold;
+        }
+        
+        /* Functional requirements */
+        .func-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .func-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #b21f1f;
+        }
+        
+        .func-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        /* Animation for slide content */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide-content > * {
+            animation: fadeIn 0.6s ease forwards;
+        }
+         .intro-image-container {
+            width: 90%;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid #1a2a6c;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: #f8f9fa;
+        }
+        
+        .intro-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .thank-you {
+            font-size: 3rem;
+            color: #1a2a6c;
+            text-align: center;
+            margin-top: 30px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .arch-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            margin: 20px 0;
+        }
+        .arch-diagram-use {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            margin: 20px 0;
+        }
+        .arch-diagram-use-global {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 550px;
+            margin: 20px 0;
+        }
+        .arch-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            width: 80%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .arch-title {
+            color: #b21f1f;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+                .org-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 45%;
+            height: 100%;
+            padding: 20px;
+            border-radius: 15px;
+            background: #f8f9fa;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .org-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .org-title {
+            font-size: 1.8rem;
+            color: #b21f1f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .org-logo-container {
+            width: 100%;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            border: 2px dashed #1a2a6c;
+            border-radius: 10px;
+            background: white;
+        }
+        
+        .org-logo {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        
+        .org-details {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .org-details ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+            display: inline-block;
+        }
+        
+        .org-details li {
+            padding: 10px 0;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .org-details li:before {
+            content: "•";
+            color: #1a2a6c;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: 5px;
+        }
+        
+        .org-separator {
+            width: 3px;
+            height: 80%;
+            background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #1a2a6c);
+            border-radius: 10px;
+        }
+        
+        .placeholder-text {
+            color: #b21f1f;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        .solution-container {
+            width: 30%;
+            height: 100%;
+            padding: 20px;
+            border-radius: 15px;
+            background: #f8f9fa;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        
+        .solution-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .solution-title {
+            font-size: 1.6rem;
+            color: #b21f1f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .solution-logo-container {
+            width: 100%;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .solution-logo {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        
+        .solution-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pros-cons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .pros-container, .cons-container {
+            flex: 1;
+        }
+        
+        .section-title {
+            font-size: 1.2rem;
+            color: #1a2a6c;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .pros-title {
+            color: #28a745;
+        }
+        
+        .cons-title {
+            color: #dc3545;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+        }
+        
+        .features-list {
+            list-style-type: none;
+            padding: 0;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .features-list li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .features-list li:before {
+            position: absolute;
+            left: 0;
+            top: 10px;
+        }
+        
+        .pros-list li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .cons-list li:before {
+            content: "✗";
+            color: #dc3545;
+        }
+        
+        .comparison-summary {
+            width: 100%;
+            margin-top: 30px;
+            padding: 20px;
+            background: #1a2a6c;
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .summary-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #ffc107;
+        }
+        
+        .placeholder-logo {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #1a2a6c;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1rem;
+        }
+        
+        .placeholder-logo i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #b21f1f;
+        }
+        .solutions-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .solution-container {
+        width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .solution-container {
+        width: 100%;
+    }
+}
+.problem-container {
+            width: 90%;
+            max-width: 900px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border-left: 8px solid #1a2a6c;
+        }
+        
+        .problem-container:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26,42,108,0.05) 0%, rgba(178,31,31,0.05) 100%);
+            z-index: 0;
+        }
+        
+        .problem-statement {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            text-align: center;
+            color: #1a2a6c;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 40px;
+        }
+        
+        .problem-statement span.highlight {
+            color: #b21f1f;
+            font-weight: 700;
+            position: relative;
+        }
+         @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .problem-statement {
+            animation: fadeIn 1s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <div class="container">
+    <!-- Slide 1: Titre -->
+    <div class="slide active" id="slide1">
+        <div class="slide-number">1</div>
+        
+        <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+
+        <div class="slide-content">
+            <div class="slide-title">Swift Helpers</div>
+            <div class="slide-subtitle">Plateforme intelligente de mise en relation entre clients et prestataires</div>
+
+            <!-- Logo ajouté sous le sous-titre -->
+            <div style="margin-top: 20px; text-align: center;">
+                <img src="logo.png" alt="Logo principal" style="height: 80px;">
+            </div>
+            
+            <div style="text-align:center;margin-top:40px">
+                <div style="font-size:1.4rem;margin-bottom:30px;">Présenté par: <strong>Aziz Aydi</strong></div>
+                <div>5ème Génie Logiciel - ESPRIT</div>
+                <div style="margin:20px 0;font-size:1.1rem;">Projet réalisé chez InotekPlus</div>
+            </div>
+            
+            <div style="display:flex;justify-content:center;gap:40px;margin-top:40px">
+                <div>
+                    <div style="font-weight:bold;margin-bottom:10px;">Encadrant académique:</div>
+                    <div>Houda Jouini Chaabouni</div>
+                </div>
+                <div>
+                    <div style="font-weight:bold;margin-bottom:10px;">Encadrant professionnel:</div>
+                    <div>Hichem Aidi</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">Présentation du projet Swift Helpers - Juillet 2025</div>
+    </div>
+
+
+        
+        <!-- Slide 2: Plan -->
+        <div class="slide" id="slide2">
+            <div class="slide-number">2</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Plan de Présentation</div>
+                
+                <ol style="margin: 30px auto; max-width: 800px; font-size: 1.2rem; line-height: 2.2;">
+                    <li>Présentation de l'organisme d'accueil et contexte génèral du projet</li>
+                    <li>Analyse et spécification des besoins</li>   
+                    <li>Réalisation</li>
+                    <li>Démonstration</li>
+                    <li>Résultats obtenus</li>
+                    <li>Conclusion</li>
+                    <li>Remerciements</li>
+                </ol>
+            </div>
+            
+            <div class="slide-footer">Plan de présentation</div>
+        </div>
+
+        <div class="slide active" id="slide3">
+            <div class="slide-number">3</div>
+            <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            <div class="slide-title">Introduction</div>
+            <div class="slide-content">
+                <div class="intro-image-container">                    
+                    <!-- Décommentez cette partie et remplacez le src lorsque vous avez votre image -->
+                    
+                    <img src="intro.png" alt="Introduction" class="intro-image">
+                   
+                </div>
+            </div>
+            
+            <div class="slide-footer">Présentation de l'organisme d'accueil et contexte génèral du projet</div>
+        </div>
+    
+    <!-- Slide 4: Contexte Académique et Organisme d'Accueil -->
+<div class="slide" id="slide4">
+    <div class="slide-number">4</div>
+
+    <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+        <!-- Logo principal à gauche -->
+        <div class="logos">
+            <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+        </div>
+
+        <!-- Logos à droite centrés -->
+        <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+            <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+            <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+        </div>
+    </div>
+
+    <div class="slide-title">Contexte Académique et Organisme d'Accueil</div>
+
+    <div class="slide-content" style="display: flex; gap: 40px; justify-content: center; align-items: stretch; flex-wrap: wrap; padding: 40px 20px;">
+        <!-- ESPRIT -->
+        <div class="org-container">
+            <div class="org-title">ESPRIT - École Supérieure Privée d'Ingénierie et de Technologies</div>
+            <div class="org-logo-container">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT Logo" class="org-logo">
+            </div>
+            
+        </div>
+
+        <!-- Séparateur vertical -->
+        <div class="org-separator"></div>
+
+        <!-- InotekPlus -->
+        <div class="org-container">
+            <div class="org-title">InotekPlus - Innovation Technologique</div>
+            <div class="org-logo-container">
+                <img src="inotekplus_logo.png" alt="InotekPlus Logo" class="org-logo">
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="slide-footer">Présentation de l'organisme d'accueil et contexte génèral du projet</div>
+</div>
+<!-- Slide 5: Étude de l'Existant -->
+<div class="slide" id="slide5">
+    <div class="slide-number">5</div>
+    
+    <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="logos">
+            <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+        </div>
+        <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+            <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+            <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+        </div>
+    </div>
+
+    <div class="slide-title">Étude de l'Existant</div>
+
+    <div class="slide-content">
+        <div class="solutions-wrapper">
+            <!-- TaskRabbit -->
+            <div class="solution-container">
+                <div class="solution-title">TaskRabbit</div>
+                <div class="solution-logo-container">
+                    <img src="taskrabbit.png" alt="TaskRabbit Logo" class="solution-logo">
+                </div>
+                <div class="solution-details">
+                    <div class="pros-cons-container">
+                        <div class="pros-container">
+                            <div class="section-title pros-title">
+                                <i class="fas fa-check-circle"></i> Points Forts
+                            </div>
+                            <ul class="features-list pros-list">
+                                <li>Large base d'utilisateurs</li>
+                                <li>Système de notation robuste</li>
+                                <li>Processus simplifié de réservation</li>
+                                <li>Support client réactif</li>
+                                <li>Variété de services proposés</li>
+                            </ul>
+                        </div>
+                        <div class="cons-container">
+                            <div class="section-title cons-title">
+                                <i class="fas fa-times-circle"></i> Points Faibles
+                            </div>
+                            <ul class="features-list cons-list">
+                                <li>Frais de service élevés</li>
+                                <li>Pas d'assistance par chatbot</li>
+                                <li>Couverture géographique limitée</li>
+                                <li>Interface utilisateur vieillissante</li>
+                                <li>Options de paiement limitées</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thumbtack -->
+            <div class="solution-container">
+                <div class="solution-title">Thumbtack</div>
+                <div class="solution-logo-container">
+                    <img src="thumbtack.png" alt="Thumbtack Logo" class="solution-logo">
+                </div>
+                <div class="solution-details">
+                    <div class="pros-cons-container">
+                        <div class="pros-container">
+                            <div class="section-title pros-title">
+                                <i class="fas fa-check-circle"></i> Points Forts
+                            </div>
+                            <ul class="features-list pros-list">
+                                <li>Grande variété de services</li>
+                                <li>Système de devis détaillé</li>
+                                <li>Filtres de recherche avancés</li>
+                                <li>Interface utilisateur moderne</li>
+                                <li>Options de profils détaillés</li>
+                            </ul>
+                        </div>
+                        <div class="cons-container">
+                            <div class="section-title cons-title">
+                                <i class="fas fa-times-circle"></i> Points Faibles
+                            </div>
+                            <ul class="features-list cons-list">
+                                <li>Complexité pour les nouveaux utilisateurs</li>
+                                <li>Coûts cachés pour les prestataires</li>
+                                <li>Temps de réponse parfois long</li>
+                                <li>Processus de paiement peu intuitif</li>
+                                <li>Manque de transparence sur les prix</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HomeAdvisor -->
+            <div class="solution-container">
+                <div class="solution-title">HomeAdvisor</div>
+                <div class="solution-logo-container">
+                    <img src="homeadvisor.jpg" alt="HomeAdvisor Logo" class="solution-logo">
+                </div>
+                <div class="solution-details">
+                    <div class="pros-cons-container">
+                        <div class="pros-container">
+                            <div class="section-title pros-title">
+                                <i class="fas fa-check-circle"></i> Points Forts
+                            </div>
+                            <ul class="features-list pros-list">
+                                <li>Spécialisé dans les services à domicile</li>
+                                <li>Base de données de prestataires vérifiés</li>
+                                <li>Système de garantie des services</li>
+                                <li>Estimation de coûts précise</li>
+                                <li>Options de services récurrents</li>
+                            </ul>
+                        </div>
+                        <div class="cons-container">
+                            <div class="section-title cons-title">
+                                <i class="fas fa-times-circle"></i> Points Faibles
+                            </div>
+                            <ul class="features-list cons-list">
+                                <li>Service client limité</li>
+                                <li>Couverture géographique restreinte</li>
+                                <li>Frais élevés pour les prestataires</li>
+                                <li>Interface peu intuitive</li>
+                                <li>Processus de réservation complexe</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end solutions-wrapper -->
+    </div> <!-- end slide-content -->
+
+    <div class="slide-footer">Présentation de l'organisme d'accueil et contexte génèral du projet</div>
+</div>
+<!-- Slide Problématique -->
+        <div class="slide">
+            <div class="slide-number">6</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-title">Problématique</div>
+            
+            <div class="slide-content">
+                <div class="problem-container">
+                    <div class="problem-statement">
+                        Comment <span class="highlight">simplifier et optimiser</span> la mise en relation entre clients et prestataires de services 
+                        tout en garantissant une <span class="highlight">expérience utilisateur fluide</span> et 
+                        <span class="highlight">sécurisée</span>, particulièrement dans le contexte spécifique du marché albertain ?
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="slide-footer">Présentation de l'organisme d'accueil et contexte génèral du projet</div>
+        </div>
+ <!-- Slide 8: Technologies utilisées -->
+        <div class="slide" id="slide8">
+            <div class="slide-number">8</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Technologies Utilisées</div>
+                
+                <div class="tech-container">
+                    <div class="tech-card">
+                        <div class="tech-logo">
+                            <i class="fab fa-angular"></i>
+                        </div>
+                        <div>Angular</div>
+                        <div>Frontend</div>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <div class="tech-logo">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <div>Django</div>
+                        <div>Backend</div>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <div class="tech-logo">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div>PostgreSQL</div>
+                        <div>Base de données</div>
+                    </div>
+                    
+                    <div class="tech-card">
+                        <div class="tech-logo">
+                            <i class="fab fa-docker"></i>
+                        </div>
+                        <div>Docker</div>
+                        <div>Conteneurisation</div>
+                    </div>
+                    
+                    
+                </div>
+                
+            </div>
+            
+            <div class="slide-footer">Présentation de l'organisme d'accueil et contexte génèral du projet</div>
+        </div>
+        <!-- Slide 3: Identification des acteurs -->
+        <div class="slide" id="slide3">
+            <div class="slide-number">3</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Identification des Acteurs</div>
+                
+                <div class="actor-container">
+                    <div class="actor-card">
+                        <div class="actor-title">Client</div>
+                        <ul class="actor-features">
+                            <li>Demande de service via chatbot</li>
+                            <li>Discussion avec prestataires</li>
+                            <li>Confirmation des services</li>
+                            <li>Consultation historique</li>
+                            <li>Gestion des factures</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="actor-card">
+                        <div class="actor-title">Prestataire</div>
+                        <ul class="actor-features">
+                            <li>Visualisation des ordres en temps réel</li>
+                            <li>Expression d'intérêt</li>
+                            <li>Discussion avec clients</li>
+                            <li>Suivi des revenus</li>
+                            <li>Gestion d'agenda</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="actor-card">
+                        <div class="actor-title">Chatbot</div>
+                        <ul class="actor-features">
+                            <li>Interaction conversationnelle</li>
+                            <li>Création des ordres de service</li>
+                            <li>Guidage du client</li>
+                            <li>Collecte des informations</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="actor-card">
+                        <div class="actor-title">Administrateur</div>
+                        <ul class="actor-features">
+                            <li>Gestion des prestataires</li>
+                            <li>Suivi des ordres en temps réel</li>
+                            <li>Suivi des revenus</li>
+                            <li>Supervision de la plateforme</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-footer">Analyse et spécification des besoins</div>
+        </div>
+        
+        <!-- Slide 4: Besoins fonctionnels -->
+        <div class="slide" id="slide4">
+            <div class="slide-number">4</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Besoins Fonctionnels</div>
+                
+                <div class="func-container">
+                    <div class="func-card">
+                        <div class="func-title">Gestion des clients</div>
+                        <ul class="actor-features">
+                            <li>Création et gestion d'un compte client.</li>
+                            <li>Accès à une interface de demande de service via un agent conversationnel (chatbot).</li>
+                            <li>Suivi des demandes en cours et passées.</li>
+                            <li>Consultation des profils des prestataires intéressés.
+                                Communication avec le prestataire.</li>
+                            <li>Réception automatique de la facture après la réalisation du service.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="func-card">
+                        <div class="func-title">Gestion des prestataires</div>
+                        <ul class="actor-features">
+                            <li>Inscription et soumission des informations.</li>
+                            <li>Accès à un tableau de bord regroupant les ordres.</li>
+                            <li>Possibilité de manifester un intérêt pour un ordre de mission.</li>
+                            <li>Consultation de l'historique de travail et revenus.</li>
+                            <li>Visualisation des factures associées à ses interventions.</li>
+                            <li>Consultation du calendrier de travail.</li>
+                            <li>Communication avec les clients via une messagerie intégrée.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="func-card">
+                        <div class="func-title">Gestion des ordres de mission</div>
+                        <ul class="actor-features">
+                            <li>Génération automatique d'un ordre à partir d'un échange avec le chatbot.</li>
+                            <li>Affectation de l'ordre aux prestataires concernés selon leur profil et disponibilité.</li>
+                            <li>Suivi des étapes de l'intervention.</li>
+                            <li>Clôture automatique de l'ordre et déclenchement de la facturation.</li>
+                            
+                        </ul>
+                    </div>
+                    <div class="func-card">
+                        <div class="func-title">Administration de la plateforme</div>
+                        <ul class="actor-features">
+                            <li>Validation et activation des comptes des prestataires inscrits.</li>
+                            <li>Suivi en temps réel de l'ensemble des ordres de mission et consultation de leur histo-
+rique.</li>
+                            <li> Supervision globale de l'activité des utilisateurs (clients, prestataires).</li>
+                            <li>Suivi des paiements effectués et des performances opérationnelles.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-footer">Analyse et spécification des besoins</div>
+        </div>
+        
+        <!-- Slide 5: Besoins non fonctionnels -->
+        <div class="slide" id="slide5">
+            <div class="slide-number">5</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Besoins Non-Fonctionnels</div>
+                
+                <div class="nf-requirements">
+                    <div class="nf-badge">⚡ Performance</div>
+                    <div class="nf-badge">🛡️ Fiabilité</div>
+                    <div class="nf-badge">🔒 Sécurité</div>
+                    <div class="nf-badge">📱 Accessibilité</div>
+                    <div class="nf-badge">🔧 Maintenabilité</div>
+                    <div class="nf-badge">🎨 Ergonomie</div>
+                </div>
+                
+            </div>
+            
+            <div class="slide-footer">Analyse et spécification des besoins</div>
+        </div>
+        <!-- Slide 7: Diagramme de cas d'utilisation -->
+        <div class="slide" id="slide7">
+            <div class="slide-number">7</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Diagramme de Cas d'Utilisation Global</div>
+                
+                <div class="arch-diagram-use-global">
+                    <img src="use_case_global.png" alt="use case global" class="arch-diagram-use-global">
+               
+                </div>
+                
+            </div>
+            
+            <div class="slide-footer">Analyse et spécification des besoins</div>
+        </div>
+        
+        <!-- Slide 6: Diagramme de classes -->
+        <div class="slide" id="slide6">
+            <div class="slide-number">6</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Diagramme de Classes</div>
+                
+                <div class="diagram-class-placeholder">
+               <img src="1.png" alt="1" class="class-logo">
+                </div>
+                
+            
+            </div>
+            
+            <div class="slide-footer">Analyse et spécification des besoins</div>
+        </div>
+        <!-- Slide 6: Diagramme de classes -->
+        <div class="slide" id="slide6">
+            <div class="slide-number">6</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Diagramme de Classes</div>
+                
+                <div class="diagram-placeholder">
+               <img src="2.png" alt="2" class="solution-logo">
+                </div>
+                
+            
+            </div>
+            
+            <div class="slide-footer">Analyse et spécification des besoins</div>
+        </div>
+        <!-- Slide 6: Diagramme de classes -->
+        <div class="slide" id="slide6">
+            <div class="slide-number">6</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Diagramme de Classes</div>
+                
+                <div class="diagram-placeholder">
+               <img src="3.png" alt="3" class="solution-logo">
+                </div>
+                
+            
+            </div>
+            
+            <div class="slide-footer">Analyse et spécification des besoins</div>
+        </div>
+        <!-- Slide 6: Diagramme de classes -->
+        <div class="slide" id="slide6">
+            <div class="slide-number">6</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Diagramme de Classes</div>
+                
+                <div class="diagram-placeholder">
+               <img src="4.png" alt="4" class="solution-logo">
+                </div>
+                
+            
+            </div>
+            
+            <div class="slide-footer">Analyse et spécification des besoins</div>
+        </div>
+        <!-- Slide 6: Diagramme de classes -->
+        <div class="slide" id="slide6">
+            <div class="slide-number">6</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Diagramme de Classes</div>
+                
+                <div class="diagram-placeholder">
+               <img src="5.png" alt="5" class="solution-logo">
+                </div>
+                
+            
+            </div>
+            
+            <div class="slide-footer">Analyse et spécification des besoins</div>
+        </div>
+        <!-- Slide 6: Diagramme de classes -->
+        <div class="slide" id="slide6">
+            <div class="slide-number">6</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Diagramme de Classes</div>
+                
+                <div class="diagram-placeholder">
+               <img src="6.png" alt="3" class="solution-logo">
+                </div>
+                
+            
+            </div>
+            
+            <div class="slide-footer">Analyse et spécification des besoins</div>
+        </div>
+        
+        
+       
+        
+        <!-- Slide 9: Architecture logique Angular -->
+        <div class="slide" id="slide9">
+            <div class="slide-number">9</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Architecture Logique - Angular</div>
+                
+                <div class="arch-diagram">
+                    <img src="angular architecture.png" alt="Architecture Angular" class="arch-diagram">
+                </div>
+            </div>
+            <div class="slide-footer">Analyse et spécification des besoins</div>
+        </div>
+        
+        <!-- Slide 10: Architecture logique Django -->
+        <div class="slide" id="slide10">
+            <div class="slide-number">10</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Architecture Logique - Django</div>
+                
+                <div class="arch-diagram">
+                   <img src="django architecture.png" alt="django Angular" class="arch-diagram">
+                </div>
+
+            </div>
+            
+            <div class="slide-footer">Analyse et spécification des besoins</div>
+        </div>
+        
+        <!-- Slide 11: Sprint 1 -->
+        <div class="slide" id="slide11">
+            <div class="slide-number">11</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Sprint 1: Gestion des Clients</div>
+
+                <div class="arch-diagram-use">
+                   <img src="client.png" alt="django Angular" class="arch-diagram-use">
+                </div>
+            </div>
+            
+            <div class="slide-footer">Réalisation </div>
+        </div>
+        
+        <!-- Slide 12: Sprint 2 -->
+        <div class="slide" id="slide12">
+            <div class="slide-number">12</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Sprint 2: Gestion des Prestataires</div>
+            
+                
+               <div class="arch-diagram-use">
+                   <img src="Prestataire.png" alt="django Angular" class="arch-diagram-use">
+                </div>
+            </div>
+            
+            <div class="slide-footer">Réalisation</div>
+        </div>
+        
+        <!-- Slide 13: Sprint 3 -->
+        <div class="slide" id="slide13">
+            <div class="slide-number">13</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Sprint 3: Ordres de Mission</div>
+                    <div class="arch-diagram-use">
+                        <img src="ordre.png" alt="django Angular" class="arch-diagram-use">
+                    </div>
+            </div>
+            
+            <div class="slide-footer">Réalisation </div>
+        </div>
+        
+        <!-- Slide 14: Sprint 4 -->
+        <div class="slide" id="slide14">
+            <div class="slide-number">14</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Sprint 4: Administration de Plateforme</div>
+                
+                              <div class="arch-diagram-use">
+                   <img src="administration platforme.png" alt="django Angular" class="arch-diagram-use">
+                </div>
+            </div>
+            
+            <div class="slide-footer">Réalisation </div>
+        </div>
+        
+        <!-- Slide 15: Sprint 5 -->
+        <div class="slide" id="slide15">
+            <div class="slide-number">15</div>
+            <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content">
+                <div class="slide-title">Sprint 5: Déploiement</div>
+                
+                
+                <div class="arch-diagram-use">
+                   <img src="architecture docker.png" alt="django Angular" class="arch-diagram-use">
+                </div>
+            </div>
+            
+            <div class="slide-footer">Réalisation </div>
+        </div>
+        
+        <div class="slide" id="slide16">
+            <div class="slide-number">16</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+         <div class="slide-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <div class="slide-title">Démonstration</div>
+                
+               
+                    <img src="qr.png" alt="InotekPlus">
+               
+                
+                <div style="text-align: center; margin-top: 30px; max-width: 600px;">
+                    <p style="font-size: 1.2rem; margin-bottom: 20px;">Scannez le QR Code pour accéder à Swift Helpers</p>
+                    <p style="font-style: italic;">Lien alternatif: www.swift-helpers.com</p>
+                </div>
+            </div>
+            
+            <div class="slide-footer">Démonstration</div>
+        </div>
+<div class="slide" id="slide16">
+            <div class="slide-number">16</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+
+                    <div class="slide-content">
+                <div class="slide-title">Résultats Obtenus</div>
+                
+                <div style="display: flex; gap: 30px; margin-top: 30px;">
+                    <div style="flex: 1; background: #f8f9fa; padding: 20px; border-radius: 15px;">
+                        <h3 style="color: #b21f1f; margin-bottom: 15px; text-align: center;">Fonctionnel</h3>
+                        <ul style="line-height: 1.8;">
+                            <li>Plateforme complète opérationnelle</li>
+                            <li>Chatbot intégré avec création automatique d'ordres</li>
+                            <li>Workboard temps réel pour prestataires</li>
+                            <li>Système de facturation automatisé</li>
+                            <li>Agenda synchronisé pour prestataires</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="flex: 1; background: #f8f9fa; padding: 20px; border-radius: 15px;">
+                        <h3 style="color: #b21f1f; margin-bottom: 15px; text-align: center;">Technique</h3>
+                        <ul style="line-height: 1.8;">
+                            <li>Architecture modulaire et scalable</li>
+                            <li>Déploiement conteneurisé avec Docker</li>
+                            <li>Performance optimale même sous charge</li>
+                            <li>Sécurité des données renforcée</li>
+                            <li>Interface utilisateur intuitive et responsive</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; background: #1a2a6c; color: white; padding: 20px; border-radius: 15px;">
+                    <h3 style="text-align: center;">Prochaines Étapes</h3>
+                    <ul style="margin-top: 15px; line-height: 1.8;">
+                        <li>Développement d'applications mobiles natives</li>
+                        <li>Intégration d'autres fonctionnalités</li>
+                        <li>Expansion vers d'autres provinces canadiennes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="slide-footer">Résultats obtenus</div>
+        </div>
+        <div class="slide" id="slide16">
+            <div class="slide-number">16</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+
+                   <div class="slide-content">
+        <div class="slide-title">Résultats Obtenus</div>
+
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 30px;">
+            <img src="resultat.jpg" alt="Résultats" style="max-height: 500px; width: auto; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+        </div>
+    </div>
+
+    <div class="slide-footer">Résultats obtenus</div>
+</div>
+
+ <div class="slide" id="slide16">
+            <div class="slide-number">16</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+
+ <div class="slide-content">
+    <div class="slide-title">Conclusion</div>
+
+    <div style="max-width: 900px; margin: 0 auto; text-align: center; font-size: 1.2rem; line-height: 1.8;">
+        <!-- Paragraphe d’introduction -->
+        <p style="margin-bottom: 30px;">
+            <strong>Swift Helpers</strong> représente une solution innovante dans le domaine de la mise en relation de services, 
+            combinant une interface conversationnelle avancée avec un processus automatisé de gestion des commandes.
+        </p>
+
+        <!-- Encadré des points forts -->
+        <div style="background: #f8f9fa; padding: 25px 40px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: inline-block; text-align: left;">
+            <h3 style="color: #b21f1f; margin-bottom: 15px; text-align: center;">Points Forts du Projet</h3>
+            <ul style="list-style-type: disc; padding-left: 20px;">
+                <li>Réduction du temps de création de commande grâce au chatbot</li>
+                <li>Processus simplifié pour clients et prestataires</li>
+                <li>Solution techniquement robuste et évolutive</li>
+                <li>Adéquation parfaite avec le marché cible albertain</li>
+            </ul>
+        </div>
+
+        <!-- Phrase de clôture -->
+        <p style="font-weight: 600; margin-top: 10px;">
+            Ce projet démontre l'impact des solutions innovantes dans la transformation digitale des services traditionnels.
+        </p>
+    </div>
+</div>
+
+<div class="slide-footer">Conclusion</div>
+
+        </div>
+        <!-- Slide 16: Remerciements -->
+        <div class="slide" id="slide16">
+            <div class="slide-number">16</div>
+             <div class="slide-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <!-- Logo principal à gauche -->
+            <div class="logos">
+                <img src="logo.png" alt="Logo principal" style="height: 60px; border-radius: 5px;">
+            </div>
+
+            <!-- Logos à droite centrés -->
+            <div class="logos" style="display: flex; gap: 20px; align-items: center;">
+                <img src="inotekplus_logo.png" alt="InotekPlus" style="height: 100px; border-radius: 5px; margin-right:100px">
+                <img src="Logo_ESPRIT_Ariana.jpg" alt="ESPRIT" style="height: 60px; border-radius: 5px; margin-right:470px">
+            </div>
+        </div>
+            
+            <div class="slide-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <div class="thank-you">
+                    <i class="fas fa-hands-helping" style="margin-right: 20px;"></i>
+                    Merci pour votre attention
+                    <i class="fas fa-hands-helping" style="margin-left: 20px;"></i>
+                </div>
+                
+                <div style="text-align: center; margin-top: 60px; font-size: 1.5rem; color: #1a2a6c;">
+                    <p>Des questions ?</p>
+                </div>
+            </div>
+            
+            <div class="slide-footer">Remerciements</div>
+        </div>
+    </div>
+    
+    <div class="nav-buttons">
+        <button class="nav-btn" id="prevBtn" disabled>Précédent</button>
+        <button class="nav-btn" id="nextBtn">Suivant</button>
+        <button class="nav-btn" onclick="toggleFullscreen()" id="fullscreenBtn">🔍 Plein écran</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const progressBar = document.getElementById('progressBar');
+            let currentSlide = 0;
+            
+            function showSlide(index) {
+                // Hide all slides
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                });
+                
+                // Show current slide
+                slides[index].classList.add('active');
+                
+                // Update button states
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = index === slides.length - 1;
+                
+                // Update progress bar
+                const progress = ((index + 1) / slides.length) * 100;
+                progressBar.style.width = `${progress}%`;
+                
+                // Update slide number display
+                document.querySelectorAll('.slide-number').forEach((el, i) => {
+                    el.textContent = i + 1;
+                });
+            }
+            
+            function nextSlide() {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    showSlide(currentSlide);
+                }
+            }
+            
+            function prevSlide() {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    showSlide(currentSlide);
+                }
+            }
+            function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+            
+            // Event listeners
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // Keyboard navigation
+                   // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'F11') {
+                e.preventDefault();
+                toggleFullscreen();
+            } else if (e.key === 'Home') {
+                currentSlideIndex = 0;
+                showSlide(currentSlideIndex);
+            } else if (e.key === 'End') {
+                currentSlideIndex = totalSlides - 1;
+                showSlide(currentSlideIndex);
+            }
+        });
+            
+            // Initialize
+            showSlide(currentSlide);
+        });
+    </script>
+</body>
+</html>
