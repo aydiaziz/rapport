@@ -102,6 +102,39 @@
             font-weight: 600;
             font-size: 1.1rem;
         }
+
+        .plan-list {
+            margin: 30px auto;
+            max-width: 800px;
+            font-size: 1.2rem;
+            line-height: 2.2;
+            list-style: none;
+            counter-reset: item;
+            padding-left: 0;
+        }
+
+        .plan-list li {
+            counter-increment: item;
+            margin-bottom: 10px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .plan-list li::before {
+            content: counter(item);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #1a2a6c;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
         
         .nav-buttons {
             position: absolute;
@@ -111,6 +144,10 @@
             z-index: 100;
             display: flex;
             gap: 15px;
+        }
+
+        .nav-buttons.hidden {
+            display: none;
         }
         
         .nav-btn {
@@ -889,9 +926,9 @@
             <div class="slide-content">
                 <div class="slide-title">Plan de Présentation</div>
                 
-                <ol style="margin: 30px auto; max-width: 800px; font-size: 1.2rem; line-height: 2.2;">
+                <ol class="plan-list">
                     <li>Présentation de l'organisme d'accueil et contexte génèral du projet</li>
-                    <li>Analyse et spécification des besoins</li>   
+                    <li>Analyse et spécification des besoins</li>
                     <li>Réalisation</li>
                     <li>Démonstration</li>
                     <li>Résultats obtenus</li>
@@ -1953,6 +1990,7 @@ rique.</li>
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
+            const navBtns = document.querySelector('.nav-buttons');
             const progressBar = document.getElementById('progressBar');
             const totalSlides = slides.length;
             let currentSlide = 0;
@@ -1993,17 +2031,25 @@ rique.</li>
                     showSlide(currentSlide);
                 }
             }
-            function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen();
-            } else {
-                document.exitFullscreen();
+            function handleFullscreenChange() {
+                const isFs = document.fullscreenElement !== null;
+                if (navBtns) {
+                    navBtns.classList.toggle('hidden', isFs);
+                }
             }
-        }
+
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    document.exitFullscreen();
+                }
+            }
             
             // Event listeners
             nextBtn.addEventListener('click', nextSlide);
             prevBtn.addEventListener('click', prevSlide);
+            document.addEventListener('fullscreenchange', handleFullscreenChange);
             
             // Keyboard navigation (supports wireless presenter keys)
         document.addEventListener('keydown', function(e) {
@@ -2025,6 +2071,7 @@ rique.</li>
             
             // Initialize
             showSlide(currentSlide);
+            handleFullscreenChange();
         });
     </script>
 </body>
