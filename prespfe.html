@@ -1954,6 +1954,7 @@ rique.</li>
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             const progressBar = document.getElementById('progressBar');
+            const totalSlides = slides.length;
             let currentSlide = 0;
             
             function showSlide(index) {
@@ -2004,22 +2005,21 @@ rique.</li>
             nextBtn.addEventListener('click', nextSlide);
             prevBtn.addEventListener('click', prevSlide);
             
-            // Keyboard navigation
-                   // Keyboard navigation
+            // Keyboard navigation (supports wireless presenter keys)
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
+            if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ' || e.key === 'Enter') {
                 nextSlide();
-            } else if (e.key === 'ArrowLeft') {
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
                 prevSlide();
             } else if (e.key === 'F11') {
                 e.preventDefault();
                 toggleFullscreen();
             } else if (e.key === 'Home') {
-                currentSlideIndex = 0;
-                showSlide(currentSlideIndex);
+                currentSlide = 0;
+                showSlide(currentSlide);
             } else if (e.key === 'End') {
-                currentSlideIndex = totalSlides - 1;
-                showSlide(currentSlideIndex);
+                currentSlide = totalSlides - 1;
+                showSlide(currentSlide);
             }
         });
             
